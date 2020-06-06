@@ -1,22 +1,24 @@
-/************************************************************************************/
-/*                              include file                                        */
-/************************************************************************************/
-/*  system file */
-
+/*************************************************************************************************************/
+/*                              include file                                                                 */
+/*************************************************************************************************************/
 /*  internal file */
 #define UART_GLOBALS_VARIABLE_DEFINITION
+#include "lxx_uart.h"
 #include "lxx_uart_cfg.h"
-
 /*  external file */
+#include "lxx_gpio.h"
+#include "lxx_exti.h"
+/*  system file */
+#include "main.h"
 
-/************************************************************************************/
-/*                              local variable                                      */
-/************************************************************************************/
-const static LXX_UART_InitTypeDef UART_PORT_ARRAY[] = {usart1, usart2, usart3,
-                                                       uart4,  uart5};
-/************************************************************************************/
-/*                              local function                                      */
-/************************************************************************************/
+/*************************************************************************************************************/
+/*                              local variable                                                               */
+/*************************************************************************************************************/
+const static LXX_UART_InitTypeDef UART_PORT_ARRAY[] = {usart1, usart2, usart3, uart4, uart5};
+
+/*************************************************************************************************************/
+/*                              local function                                                              */
+/*************************************************************************************************************/
 static void LXX_UART_Init(LXX_UART_InitTypeDef * huart);
 
 /***********************************************************************************
@@ -44,7 +46,7 @@ void MMX_UART_Init(void)
 /***********************************************************************************
  * Function      : MMX_UART_Single_Config
  * Description   : configration USART/UART register
- * Input         : usart1, usart2, usart3, uart4, uart5 
+ * Input         : huart = usart1, usart2, usart3, uart4, uart5;
  * Output        : NA
  * Others        : NA
 ************************************************************************************/
@@ -200,63 +202,170 @@ void MMX_UART_Single_Config(LXX_UART_InitTypeDef * huart)
     LXX_NVIC_Config(USARTx_IRQn, huart->GroupPriority, huart->SubPriority);
     NVIC_EnableIRQ(USARTx_IRQn);
 
-    //enable uart
-    UART_CMD(huart->USARTx, huart->Cmd);
     //configration IT flag
-    LXX_UART_IT_Config(huart->USARTx);
+    MMX_UART_IT_Config(huart);
+
+    //enable uart
+    MMX_UART_Cmd(huart, huart->Cmd);
 }
 
+/***********************************************************************************
+ * Function      : MMX_UART_Cmd
+ * Description   : configration UE in CR1 register, enable or disable module
+ * Input         : huart = usart1, usart2, usart3, uart4, uart5;
+ *                 State = DISABLE, ENABLE;
+ * Output        : NA
+ * Others        : NA
+************************************************************************************/
+void MMX_UART_Cmd(LXX_UART_InitTypeDef * huart, UART_STATE State)
+{
+    assert_param(CHECK_UART_PORT(USARTx));
+    assert_param(CHECK_UART_STATE(State));
+
+    if(State == DISABLE)
+    {
+        huart->USARTx->CR1 &= UART_DISABLE;
+    }
+    else
+    {
+        huart->USARTx->CR1 |= UART_ENABLE;
+    }
+}
+
+/***********************************************************************************
+ * Function      : LXX_UART_Init
+ * Description   : configration CR1, CR2, CR3 register
+ * Input         : huart = usart1, usart2, usart3, uart4, uart5;
+ * Output        : NA
+ * Others        : NA
+************************************************************************************/
 static void LXX_UART_Init(LXX_UART_InitTypeDef * huart)
 {
-    assert_param(CHECK_BAUDRATE(UART_Init->BaudRate));
-    assert_param(CHECK_UART_PORT(UART_Init->USARTx));
+    assert_param(CHECK_UART_PORT(huart->USARTx));
+    assert_param(CHECK_BAUDRATE(huart->BaudRate));
 
-    if( UART_Init->BaudRate == BR_115200 )
+    if( huart->BaudRate == BR_115200 )
     {
-        UART_Init->USARTx->BRR = BAUDRATE_115200;
+        huart->USARTx->BRR = BAUDRATE_115200;
     }
-    else if( UART_Init->BaudRate == BR_9600 )
+    else if( huart->BaudRate == BR_9600 )
     {
-        UART_Init->USARTx->BRR = BAUDRATE_9600;
+        huart->USARTx->BRR = BAUDRATE_9600;
     }
 
-    assert_param(CHECK_UART_WORDLENGTH(UART_Init->WordLength));
-    UART_Init->USARTx->CR1 |= UART_Init->WordLength;
+    assert_param(CHECK_UART_WORDLENGTH(huart->WordLength));
+    huart->USARTx->CR1 |= huart->WordLength;
 
     assert_param(CHECK_UART_PARITY(UART_Init->Parity));
-    UART_Init->USARTx->CR1 |= UART_Init->Parity;
+    huart->USARTx->CR1 |= huart->Parity;
 
-    assert_param(CHECK_UART_MODE(UART_Init->mode));
-    UART_Init->USARTx->CR1 |= UART_Init->mode;
+    assert_param(CHECK_UART_MODE(huart->mode));
+    huart->USARTx->CR1 |= huart->mode;
 
-    assert_param(CHECK_UART_STOPBITS(UART_Init->StopBits));
-    UART_Init->USARTx->CR2 |= UART_Init->StopBits;
+    assert_param(CHECK_UART_STOPBITS(huart->StopBits));
+    huart->USARTx->CR2 |= huart->StopBits;
 
-    assert_param(UART_HARDWARE_STATE(UART_Init->HWEnable));
-    UART_Init->USARTx->CR3 |= UART_Init->HWEnable;
-
+    assert_param(UART_HARDWARE_STATE(huart->HWEnable));
+    huart->USARTx->CR3 |= huart->HWEnable;
 }
 
-static void LXX_UART_IT_Config(USART_TypeDef * USARTx)
+/***********************************************************************************
+ * Function      : MMX_UART_IT_Config
+ * Description   : configration Interrupt
+ * Input         : huart = usart1, usart2, usart3, uart4, uart5;
+ *                 IT_Type = UART_EIE, UART_IDLEIE, UART_RXNEIE, UART_TCIE,
+ *                           UART_TXEIE, UART_PEIE, UART_CTSIE;
+ *                 State = DISABLE, ENABLE;
+ * Output        : NA
+ * Others        : NA
+************************************************************************************/
+void MMX_UART_IT_Config(LXX_UART_InitTypeDef * huart, LXX_UART_IT_TypeDef IT_Type, UART_STATE State)
 {
-    USARTx->CR1 |= UART_RXNEIE;
-   //USARTx->CR1 |= UART_TCIE;
+    uint32_t ItType = IT_Type;
+
+    assert_param(CHECK_UART_PORT(USARTx));
+    assert_param(CHECK_UART_STATE(State));
+    assert_param(CHECK_UART_IT(IT_Type));
+
+    if (UART_EIE == (IT_Type & UART_EIE)) 
+    {
+        if (ENABLE == State)
+        {
+            SET_BIT(huart->USARTx->CR3,UART_EIE)
+        }
+        else
+        {
+            CLEAR_BIT(huart->USARTx->CR3,UART_EIE)
+        }   
+    }
+    else
+    {
+        /* do nothing */
+    }
+ 
+    if (ItType = (IT_Type & (UART_RXNEIE+UART_TCIE+UART_TXEIE+UART_PEIE)))
+    {
+        if (ENABLE == State)
+        {
+            SET_BIT(huart->USARTx->CR1,ItType)
+        }
+        else
+        {
+            CLEAR_BIT(huart->USARTx->CR1,ItType)
+        }  
+    }
+    else
+    {
+        /* do nothing */
+    }
+
+    if (UART_CTSIE == (IT_Type & UART_CTSIE))
+    {
+        if (ENABLE == State)
+        {
+            SET_BIT(huart->USARTx->CR2,UART_CTSIE)
+        }
+        else
+        {
+            CLEAR_BIT(huart->USARTx->CR2,UART_CTSIE)
+        }  
+    }
+    else
+    {
+        /* do nothing */
+    }
 }
 
-void Usart_SendByte( int ch )
+/***********************************************************************************
+ * Function      : MMX_Usart_SendByte
+ * Description   : send a byte data
+ * Input         : huart = usart1, usart2, usart3, uart4, uart5;
+ *                 ch is data
+ * Output        : NA
+ * Others        : NA
+************************************************************************************/
+void MMX_Usart_SendByte(LXX_UART_InitTypeDef * huart, uint8_t ch)
 {
-    USART1->DR = ch;
-    while((USART1->SR & (uint32_t)0x40) == 0x00);	
-} 
+    huart->USARTx->DR = ch;
+    while((huart->USARTx->SR & IT_FLAG_RXNE) == (uint32_t)0x00);	
+}
 
-void Usart_SendStatement(uint8_t *p_str)
+/***********************************************************************************
+ * Function      : MMX_Usart_SendByte
+ * Description   : send a Statement
+ * Input         : huart = usart1, usart2, usart3, uart4, uart5;
+ *                 p_str is statement
+ * Output        : NA
+ * Others        : NA
+************************************************************************************/
+void Usart_SendStatement(LXX_UART_InitTypeDef * huart, uint8_t *p_str)
 {
     while (*p_str != '\0')
     {
-        USART1->DR = *p_str++;
-        while((USART1->SR & (uint32_t)0x80) == 0x00);	
+        huart->USARTx->DR = *p_str++;
+        while((huart->USARTx->SR & IT_FLAG_TXE) == (uint32_t)0x00);	
     }
-    while((USART1->SR & (uint32_t)0x40) == 0x00);
+    while((huart->USARTx->SR & IT_FLAG_TC) == (uint32_t)0x00);
 }
 
 void USART1_IRQHandler(void)

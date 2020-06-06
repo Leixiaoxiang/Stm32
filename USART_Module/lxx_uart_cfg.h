@@ -1,27 +1,141 @@
 #ifndef LXX_UART_CFG_H
 #define LXX_UART_CFG_H
 
-/************************************************************************************/
-/*                              include file                                        */
-/************************************************************************************/
-/*  system file */
-
+/*************************************************************************************************************/
+/*                              include file                                                                 */
+/*************************************************************************************************************/
 /*  internal file */
-#include "lxx_uart.h"
+#include "lxx_gpio_cfg.h"
 /*  external file */
 
-/************************************************************************************/
-/*                              global macro define                                 */
-/************************************************************************************/
+/*  system file */
+
+/*************************************************************************************************************/
+/*                              global typedef                                                               */
+/*************************************************************************************************************/
+typedef enum
+{
+    DISABLE = (uint32_t)0x00, 
+    ENABLE = (uint32_t)0x01
+}UART_STATE;
+
+/*********************************************************************************/
+typedef struct
+{
+    uint16_t                CTS_Pin;
+    uint16_t                RTS_Pin;
+    LXX_GPIO_InitTypeDef    TX_Pin;
+    LXX_GPIO_InitTypeDef    RX_Pin;
+    uint16_t                CK_Pin;
+}USART_Pin_Config;
+
+/*********************************************************************************/
+typedef struct 
+{
+    USART_TypeDef * USARTx;
+    USART_Pin_Config USARTxPin;
+    uint32_t BaudRate;              
+    uint32_t WordLength;
+    uint32_t Parity;
+    uint32_t Mode;
+    uint32_t StopBits;
+    uint32_t HWEnable;
+    UART_STATE Cmd;
+    uint8_t GroupPriority;
+    uint8_t SubPriority;
+}LXX_UART_InitTypeDef;
+
+/*********************************************************************************/
+typedef enum
+{
+    UART_EIE    = ((uint32_t)(0x1 << 0u)),
+    UART_IDLEIE = ((uint32_t)(0x1 << 4u)),
+    UART_RXNEIE = ((uint32_t)(0x1 << 5u)),
+    UART_TCIE   = ((uint32_t)(0x1 << 6u)),
+    //UART_LBDIE  = ((uint32_t)(0x1 << 6u)),
+    UART_TXEIE  = ((uint32_t)(0x1 << 7u)),
+    UART_PEIE   = ((uint32_t)(0x1 << 8u)),
+    UART_CTSIE  = ((uint32_t)(0x1 << 10u))
+}LXX_UART_IT_TypeDef;
+
+/*************************************************************************************************************/
+/*                              global macro define                                                          */
+/*************************************************************************************************************/
 #ifdef UART_GLOBALS_VARIABLE_DEFINITION
     #define EXTERN
 #else
     #define EXTERN  extern
 #endif
+/*********************************************************************************/
 
-/************************************************************************************/
-/*                              global variable                                     */
-/************************************************************************************/
+#define BR_9600                         ((uint32_t)9600)
+#ifdef BR_9600
+
+    #define DIV_MANTISSA_BR_9600        ((uint32_t)0x9 << 4u)          /* 9.6 / 1 = 9 */
+    #define DIV_FRACTION_BR_9600        ((uint32_t)0xA)                /* (9.6 % 1) * 16 = 9.6*/
+    #define BAUDRATE_9600               ((uint32_t)(DIV_MANTISSA_BR_9600 | DIV_FRACTION_BR_9600))
+#endif
+
+#define BR_115200                       ((uint32_t)115200)
+#ifdef BR_115200
+    #define DIV_MANTISSA_BR_115200      ((uint32_t)0x27 << 4u)       /* 39.0625 / 1 = 39 */
+    #define DIV_FRACTION_BR_115200      ((uint32_t)0x1)              /* (39.0625  % 1) * 16 = 1 */
+    #define BAUDRATE_115200             ((uint32_t)(DIV_MANTISSA_BR_115200 + DIV_FRACTION_BR_115200))
+#endif
+#define CHECK_BAUDRATE(X)               (((X) == BR_9600) || ((X) == BR_115200))
+
+/*********************************************************************************/
+#define WORDLENGTH_8BIT                 ((uint32_t)0x0 << 12u)
+#define WORDLENGTH_9BIT                 ((uint32_t)0x1 << 12u)
+#define CHECK_UART_WORDLENGTH(X)        (((X) == WORDLENGTH_8BIT) || ((X) == WORDLENGTH_9BIT))
+
+/*********************************************************************************/
+#define PARITY_NONE                     ((uint32_t)(0x0 << 10u))
+#define PARITY_EVEN                     ((uint32_t)((0x0 << 8u) | (0x1 << 10u)))
+#define PARITY_ODD                      ((uint32_t)((0x1 << 8u) | (0x1 << 10u)))
+#define CHECK_UART_PARITY(X)            (((X) == PARITY_NONE)   ||  \
+                                         ((X) == PARITY_EVEN)   ||  \
+                                         ((X) == PARITY_ODD))
+
+/*********************************************************************************/
+#define MODE_TRANSMITTER                ((uint32_t)(0x1 << 3u))
+#define MODE_RECEIVER                   ((uint32_t)(0x1 << 2u))
+#define MODE_TRANSMITTER_RECEIVER       ((uint32_t)(MODE_TRANSMITTER | MODE_RECEIVER))
+#define CHECK_UART_MODE(X)              (((X) == MODE_TRANSMITTER)            ||  \
+                                         ((X) == MODE_RECEIVER)               ||  \
+                                         ((X) == MODE_TRANSMITTER_RECEIVER)   ||  \
+                                         ((X) == PARITY_ODD))
+
+/*********************************************************************************/
+#define STOP_1_BIT                      ((uint32_t)(0x0 << 12u))
+#define STOP_0_5_BIT                    ((uint32_t)(0x1 << 12u))
+#define STOP_2_BIT                      ((uint32_t)(0x2 << 12u))
+#define STOP_1_5_BIT                    ((uint32_t)(0x3 << 12u))
+#define CHECK_UART_STOPBITS(X)          (((X) == STOP_1_BIT)     ||  \
+                                         ((X) == STOP_0_5_BIT)   ||  \
+                                         ((X) == STOP_2_BIT)     ||  \
+                                         ((X) == STOP_1_5_BIT))
+
+/*********************************************************************************/
+#define UART_HARDWARE_DISABLE           ((uint32_t)0x00000000u)
+#define UART_CTS_ENBALE                 ((uint32_t)(0x1 << 9u))
+#define UART_RTS_ENABLE                 ((uint32_t)(0x1 << 8u))
+#define UART_CTS_RTS_ENABLE             ((uint32_t)(UART_CTS_ENBALE | UART_RTS_ENABLE))
+#define UART_HARDWARE_STATE(X)          (((X) == UART_HARDWARE_DISABLE) || \
+                                         ((X) == UART_CTS_ENBALE)       || \
+                                         ((X) == UART_RTS_ENABLE)       || \
+                                         ((X) == UART_CTS_RTS_ENABLE))
+
+/*********************************************************************************/
+#define CHECK_UART_STATE(X)             (((X) == DISABLE) || ((X) == ENABLE))
+#define CHECK_UART_IT(X)                (((X) >= UART_EIE) && ((X) <= UART_CTSIE))
+
+#define CLEAR_BIT(REG,VAL)              ((REG) &= ~(VAL))
+#define SET_BIT(REG,VAL)                ((REG) |= (VAL))
+
+/*************************************************************************************************************/
+/*                              global variable                                                             */
+/*************************************************************************************************************/
 EXTERN LXX_UART_InitTypeDef usart1 = {
                                         .BaudRate       = BR_115200,              
                                         .WordLength     = WORDLENGTH_8BIT,
@@ -29,12 +143,13 @@ EXTERN LXX_UART_InitTypeDef usart1 = {
                                         .Mode           = MODE_TRANSMITTER_RECEIVER,
                                         .StopBits       = STOP_1_BIT,
                                         .HWEnable       = UART_HARDWARE_DISABLE
-                                        .Cmd            = UART_DISABLE,
+                                        .Cmd            = DISABLE,
                                         .GroupPriority  = (uint8_t)0x00,
                                         .SubPriority    = (uint8_t)0x00
 
                                     };
 
+/*********************************************************************************/
 EXTERN LXX_UART_InitTypeDef usart2 = {
                                         .BaudRate       = BR_115200,              
                                         .WordLength     = WORDLENGTH_8BIT,
@@ -42,11 +157,12 @@ EXTERN LXX_UART_InitTypeDef usart2 = {
                                         .Mode           = MODE_TRANSMITTER_RECEIVER,
                                         .StopBits       = STOP_1_BIT,
                                         .HWEnable       = UART_HARDWARE_DISABLE,
-                                        .Cmd            = UART_DISABLE,
+                                        .Cmd            = DISABLE,
                                         .GroupPriority  = (uint8_t)0x00,
                                         .SubPriority    = (uint8_t)0x00
                                     };
-
+                                    
+/*********************************************************************************/
 EXTERN LXX_UART_InitTypeDef usart3 = {
                                         .UARTx          = USART3,
                                         .BaudRate       = BR_115200,              
@@ -55,11 +171,12 @@ EXTERN LXX_UART_InitTypeDef usart3 = {
                                         .Mode           = MODE_TRANSMITTER_RECEIVER,
                                         .StopBits       = STOP_1_BIT,
                                         .HWEnable       = UART_HARDWARE_DISABLE,
-                                        .Cmd            = UART_DISABLE,
+                                        .Cmd            = DISABLE,
                                         .GroupPriority  = (uint8_t)0x00,
                                         .SubPriority    = (uint8_t)0x00
                                     };
-
+                                    
+/*********************************************************************************/
 EXTERN LXX_UART_InitTypeDef uart4 = {
                                         .BaudRate       = BR_115200,              
                                         .WordLength     = WORDLENGTH_8BIT,
@@ -67,11 +184,12 @@ EXTERN LXX_UART_InitTypeDef uart4 = {
                                         .Mode           = MODE_TRANSMITTER_RECEIVER,
                                         .StopBits       = STOP_1_BIT,
                                         .HWEnable       = UART_HARDWARE_DISABLE,
-                                        .Cmd            = UART_DISABLE,
+                                        .Cmd            = DISABLE,
                                         .GroupPriority  = (uint8_t)0x00,
                                         .SubPriority    = (uint8_t)0x00
                                     };
-
+                                    
+/*********************************************************************************/
 EXTERN LXX_UART_InitTypeDef uart5 = {
                                         .BaudRate       = BR_115200,              
                                         .WordLength     = WORDLENGTH_8BIT,
@@ -79,15 +197,17 @@ EXTERN LXX_UART_InitTypeDef uart5 = {
                                         .Mode           = MODE_TRANSMITTER_RECEIVER,
                                         .StopBits       = STOP_1_BIT,
                                         .HWEnable       = UART_HARDWARE_DISABLE,
-                                        .Cmd            = UART_DISABLE,
+                                        .Cmd            = DISABLE,
                                         .GroupPriority  = (uint8_t)0x00,
                                         .SubPriority    = (uint8_t)0x00
                                     };
 
-/************************************************************************************/
-/*                              global function                                     */
-/************************************************************************************/
+/*************************************************************************************************************/
+/*                              global function                                                              */
+/*************************************************************************************************************/
 void MMX_UART_Init(void);
 void MMX_UART_Single_Config(LXX_UART_InitTypeDef * huart);
-
+void MMX_UART_Cmd(LXX_UART_InitTypeDef * huart, UART_STATE State);
+void MMX_UART_IT_Config(USART_TypeDef * USARTx, LXX_UART_IT_TypeDef IT_Type, UART_STATE State);
+void MMX_Usart_SendByte(LXX_UART_InitTypeDef * huart, uint8_t ch);
 #endif /* LXX_UART_CFG_H */
