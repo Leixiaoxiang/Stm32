@@ -227,7 +227,7 @@ void MMX_UART_Cmd(LXX_UART_InitTypeDef * huart, FunctionalState State)
 
     if(DISABLE == State)
     {
-        huart->USARTx->CR1 &= USART_CR1_UE;
+        huart->USARTx->CR1 &= ~USART_CR1_UE;
         
     }
     else
