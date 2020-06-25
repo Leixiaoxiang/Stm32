@@ -1,4 +1,4 @@
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 1
 
 
    1              		.syntax unified
@@ -58,7 +58,7 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
   29:Src/Control_usart.c **** #include "stdio.h"
   30:Src/Control_usart.c **** #include "string.h"
   31:Src/Control_usart.c **** 
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 2
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 2
 
 
   32:Src/Control_usart.c **** 
@@ -118,7 +118,7 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
   86:Src/Control_usart.c ****             &huart3,
   87:Src/Control_usart.c ****         #endif
   88:Src/Control_usart.c **** 
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 3
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 3
 
 
   89:Src/Control_usart.c ****         NULL
@@ -131,7 +131,7 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
   96:Src/Control_usart.c **** {
   97:Src/Control_usart.c ****     UART_HandleTypeDef** pUART_Array = UART_Array;
   98:Src/Control_usart.c **** 
-  99:Src/Control_usart.c ****     for (; pUART_Array != NULL; pUART_Array++)
+  99:Src/Control_usart.c ****     for (; *pUART_Array != NULL; pUART_Array++)
  100:Src/Control_usart.c ****     {
  101:Src/Control_usart.c ****         MX_SINGLE_OF_UART_Init(*pUART_Array);
  102:Src/Control_usart.c ****     }  
@@ -159,36 +159,36 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
   43 0008 C361     		str	r3, [r0, #28]
  109:Src/Control_usart.c ****     #if (USE_HAL_UART4 == 1U)
  110:Src/Control_usart.c ****         if(UART4 == huart->Instance)
-  44              		.loc 1 110 0
-  45 000a 0268     		ldr	r2, [r0]
-  46 000c 0C4B     		ldr	r3, .L6
-  47 000e 9A42     		cmp	r2, r3
-  48 0010 04D1     		bne	.L2
  111:Src/Control_usart.c ****         {
  112:Src/Control_usart.c ****             huart->pRxBuffPtr   = UART4_RxBuff;
-  49              		.loc 1 112 0
-  50 0012 0C4B     		ldr	r3, .L6+4
-  51 0014 8362     		str	r3, [r0, #40]
  113:Src/Control_usart.c ****             huart->RxXferSize   = UART4_RxXferSize;
-  52              		.loc 1 113 0
-  53 0016 4FF47A73 		mov	r3, #1000
-  54 001a 8385     		strh	r3, [r0, #44]	@ movhi
-  55              	.L2:
  114:Src/Control_usart.c ****         }
  115:Src/Control_usart.c ****     #elif (USE_HAL_UART5 == 1U)
  116:Src/Control_usart.c ****         if(UART5 == huart->Instance)
  117:Src/Control_usart.c ****         {
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 4
-
-
  118:Src/Control_usart.c ****             huart->pRxBuffPtr   = UART5_RxBuff;
  119:Src/Control_usart.c ****             huart->RxXferSize   = UART5_RxXferSize;
  120:Src/Control_usart.c ****         }
  121:Src/Control_usart.c ****     #elif (USE_HAL_UART1 == 1U)
- 122:Src/Control_usart.c ****         if(UART1 == huart->Instance)
+ 122:Src/Control_usart.c ****         if(USART1 == huart->Instance)
+  44              		.loc 1 122 0
+  45 000a 0268     		ldr	r2, [r0]
+  46 000c 0C4B     		ldr	r3, .L6
+  47 000e 9A42     		cmp	r2, r3
+  48 0010 04D1     		bne	.L2
  123:Src/Control_usart.c ****         {
  124:Src/Control_usart.c ****             huart->pRxBuffPtr   = UART1_RxBuff;
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 4
+
+
+  49              		.loc 1 124 0
+  50 0012 0C4B     		ldr	r3, .L6+4
+  51 0014 8362     		str	r3, [r0, #40]
  125:Src/Control_usart.c ****             huart->RxXferSize   = UART1_RxXferSize;
+  52              		.loc 1 125 0
+  53 0016 4FF47A73 		mov	r3, #1000
+  54 001a 8385     		strh	r3, [r0, #44]	@ movhi
+  55              	.L2:
  126:Src/Control_usart.c ****         }
  127:Src/Control_usart.c ****     #elif (USE_HAL_UART2 == 1U)
  128:Src/Control_usart.c ****         if(UART2 == huart->Instance)
@@ -238,13 +238,13 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
   79 003e 10BD     		pop	{r4, pc}
   80              	.LVL6:
   81              	.L7:
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 5
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 5
 
 
   82              		.align	2
   83              	.L6:
-  84 0040 004C0040 		.word	1073761280
-  85 0044 00000000 		.word	UART4_RxBuff
+  84 0040 00380140 		.word	1073821696
+  85 0044 00000000 		.word	UART1_RxBuff
   86              		.cfi_endproc
   87              	.LFE67:
   89              		.section	.text.MX_ALL_OF_UART_Init,"ax",%progbits
@@ -270,61 +270,64 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
  108 0002 044C     		ldr	r4, .L12
   99:Src/Control_usart.c ****     {
  109              		.loc 1 99 0
- 110 0004 03E0     		b	.L9
+ 110 0004 02E0     		b	.L9
  111              	.LVL8:
  112              	.L10:
  101:Src/Control_usart.c ****     }  
  113              		.loc 1 101 0 discriminator 2
- 114 0006 54F8040B 		ldr	r0, [r4], #4
+ 114 0006 FFF7FEFF 		bl	MX_SINGLE_OF_UART_Init
  115              	.LVL9:
- 116 000a FFF7FEFF 		bl	MX_SINGLE_OF_UART_Init
- 117              	.LVL10:
- 118              	.L9:
   99:Src/Control_usart.c ****     {
- 119              		.loc 1 99 0 discriminator 1
- 120 000e 002C     		cmp	r4, #0
- 121 0010 F9D1     		bne	.L10
+ 116              		.loc 1 99 0 discriminator 2
+ 117 000a 0434     		adds	r4, r4, #4
+ 118              	.LVL10:
+ 119              	.L9:
+  99:Src/Control_usart.c ****     {
+ 120              		.loc 1 99 0 is_stmt 0 discriminator 1
+ 121 000c 2068     		ldr	r0, [r4]
+ 122 000e 0028     		cmp	r0, #0
+ 123 0010 F9D1     		bne	.L10
  103:Src/Control_usart.c **** 
- 122              		.loc 1 103 0
- 123 0012 10BD     		pop	{r4, pc}
- 124              	.LVL11:
- 125              	.L13:
- 126              		.align	2
- 127              	.L12:
- 128 0014 00000000 		.word	.LANCHOR0
- 129              		.cfi_endproc
- 130              	.LFE66:
- 132              		.section	.text.UARTReceive_IDLE,"ax",%progbits
- 133              		.align	2
- 134              		.global	UARTReceive_IDLE
- 135              		.thumb
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 6
+ 124              		.loc 1 103 0 is_stmt 1
+ 125 0012 10BD     		pop	{r4, pc}
+ 126              	.LVL11:
+ 127              	.L13:
+ 128              		.align	2
+ 129              	.L12:
+ 130 0014 00000000 		.word	.LANCHOR0
+ 131              		.cfi_endproc
+ 132              	.LFE66:
+ 134              		.section	.text.UARTReceive_IDLE,"ax",%progbits
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 6
 
 
- 136              		.thumb_func
- 138              	UARTReceive_IDLE:
- 139              	.LFB68:
+ 135              		.align	2
+ 136              		.global	UARTReceive_IDLE
+ 137              		.thumb
+ 138              		.thumb_func
+ 140              	UARTReceive_IDLE:
+ 141              	.LFB68:
  149:Src/Control_usart.c ****     }
  150:Src/Control_usart.c ****     
  151:Src/Control_usart.c **** }
  152:Src/Control_usart.c **** 
  153:Src/Control_usart.c **** void UARTReceive_IDLE(UART_HandleTypeDef *huart)
  154:Src/Control_usart.c **** {
- 140              		.loc 1 154 0
- 141              		.cfi_startproc
- 142              		@ args = 0, pretend = 0, frame = 8
- 143              		@ frame_needed = 0, uses_anonymous_args = 0
- 144              	.LVL12:
- 145 0000 10B5     		push	{r4, lr}
- 146              	.LCFI2:
- 147              		.cfi_def_cfa_offset 8
- 148              		.cfi_offset 4, -8
- 149              		.cfi_offset 14, -4
- 150 0002 82B0     		sub	sp, sp, #8
- 151              	.LCFI3:
- 152              		.cfi_def_cfa_offset 16
- 153 0004 0446     		mov	r4, r0
- 154              	.LBB2:
+ 142              		.loc 1 154 0
+ 143              		.cfi_startproc
+ 144              		@ args = 0, pretend = 0, frame = 8
+ 145              		@ frame_needed = 0, uses_anonymous_args = 0
+ 146              	.LVL12:
+ 147 0000 10B5     		push	{r4, lr}
+ 148              	.LCFI2:
+ 149              		.cfi_def_cfa_offset 8
+ 150              		.cfi_offset 4, -8
+ 151              		.cfi_offset 14, -4
+ 152 0002 82B0     		sub	sp, sp, #8
+ 153              	.LCFI3:
+ 154              		.cfi_def_cfa_offset 16
+ 155 0004 0446     		mov	r4, r0
+ 156              	.LBB2:
  155:Src/Control_usart.c ****     /*
  156:Src/Control_usart.c ****     uint16_t Rx_len = 0x00;
  157:Src/Control_usart.c ****     #if (USE_HAL_UART4 == 1U)
@@ -334,94 +337,63 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
  161:Src/Control_usart.c ****     #endif
  162:Src/Control_usart.c ****     */
  163:Src/Control_usart.c ****     __HAL_UART_CLEAR_IDLEFLAG(huart);
- 155              		.loc 1 163 0
- 156 0006 0023     		movs	r3, #0
- 157 0008 0193     		str	r3, [sp, #4]
- 158 000a 0368     		ldr	r3, [r0]
- 159 000c 1A68     		ldr	r2, [r3]
- 160 000e 0192     		str	r2, [sp, #4]
- 161 0010 5B68     		ldr	r3, [r3, #4]
- 162 0012 0193     		str	r3, [sp, #4]
- 163 0014 019B     		ldr	r3, [sp, #4]
- 164              	.LBE2:
+ 157              		.loc 1 163 0
+ 158 0006 0023     		movs	r3, #0
+ 159 0008 0193     		str	r3, [sp, #4]
+ 160 000a 0368     		ldr	r3, [r0]
+ 161 000c 1A68     		ldr	r2, [r3]
+ 162 000e 0192     		str	r2, [sp, #4]
+ 163 0010 5B68     		ldr	r3, [r3, #4]
+ 164 0012 0193     		str	r3, [sp, #4]
+ 165 0014 019B     		ldr	r3, [sp, #4]
+ 166              	.LBE2:
  164:Src/Control_usart.c ****     HAL_UART_AbortReceive_IT(huart);
- 165              		.loc 1 164 0
- 166 0016 FFF7FEFF 		bl	HAL_UART_AbortReceive_IT
- 167              	.LVL13:
+ 167              		.loc 1 164 0
+ 168 0016 FFF7FEFF 		bl	HAL_UART_AbortReceive_IT
+ 169              	.LVL13:
  165:Src/Control_usart.c ****     HAL_UART_Receive_IT(huart, huart->pRxBuffPtr, huart->RxXferSize);
- 168              		.loc 1 165 0
- 169 001a A28D     		ldrh	r2, [r4, #44]
- 170 001c A16A     		ldr	r1, [r4, #40]
- 171 001e 2046     		mov	r0, r4
- 172 0020 FFF7FEFF 		bl	HAL_UART_Receive_IT
- 173              	.LVL14:
+ 170              		.loc 1 165 0
+ 171 001a A28D     		ldrh	r2, [r4, #44]
+ 172 001c A16A     		ldr	r1, [r4, #40]
+ 173 001e 2046     		mov	r0, r4
+ 174 0020 FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 175              	.LVL14:
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 7
+
+
  166:Src/Control_usart.c **** }
- 174              		.loc 1 166 0
- 175 0024 02B0     		add	sp, sp, #8
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 7
-
-
- 176              	.LCFI4:
- 177              		.cfi_def_cfa_offset 8
- 178              		@ sp needed
- 179 0026 10BD     		pop	{r4, pc}
- 180              		.cfi_endproc
- 181              	.LFE68:
- 183              		.section	.text.GetRxData,"ax",%progbits
- 184              		.align	2
- 185              		.global	GetRxData
- 186              		.thumb
- 187              		.thumb_func
- 189              	GetRxData:
- 190              	.LFB69:
+ 176              		.loc 1 166 0
+ 177 0024 02B0     		add	sp, sp, #8
+ 178              	.LCFI4:
+ 179              		.cfi_def_cfa_offset 8
+ 180              		@ sp needed
+ 181 0026 10BD     		pop	{r4, pc}
+ 182              		.cfi_endproc
+ 183              	.LFE68:
+ 185              		.section	.text.GetRxData,"ax",%progbits
+ 186              		.align	2
+ 187              		.global	GetRxData
+ 188              		.thumb
+ 189              		.thumb_func
+ 191              	GetRxData:
+ 192              	.LFB69:
  167:Src/Control_usart.c **** 
  168:Src/Control_usart.c **** void GetRxData(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
  169:Src/Control_usart.c **** {
- 191              		.loc 1 169 0
- 192              		.cfi_startproc
- 193              		@ args = 0, pretend = 0, frame = 0
- 194              		@ frame_needed = 0, uses_anonymous_args = 0
- 195              	.LVL15:
- 196 0000 10B5     		push	{r4, lr}
- 197              	.LCFI5:
- 198              		.cfi_def_cfa_offset 8
- 199              		.cfi_offset 4, -8
- 200              		.cfi_offset 14, -4
+ 193              		.loc 1 169 0
+ 194              		.cfi_startproc
+ 195              		@ args = 0, pretend = 0, frame = 0
+ 196              		@ frame_needed = 0, uses_anonymous_args = 0
+ 197              	.LVL15:
+ 198 0000 10B5     		push	{r4, lr}
+ 199              	.LCFI5:
+ 200              		.cfi_def_cfa_offset 8
+ 201              		.cfi_offset 4, -8
+ 202              		.cfi_offset 14, -4
  170:Src/Control_usart.c ****     #if (USE_HAL_UART4 == 1U)
  171:Src/Control_usart.c ****         if(UART4 == huart->Instance)
- 201              		.loc 1 171 0
- 202 0002 0468     		ldr	r4, [r0]
- 203 0004 034B     		ldr	r3, .L19
- 204 0006 9C42     		cmp	r4, r3
- 205 0008 03D1     		bne	.L16
- 206 000a 0846     		mov	r0, r1
- 207              	.LVL16:
  172:Src/Control_usart.c ****         {
  173:Src/Control_usart.c ****             memcpy(pData, UART4_RxBuff, Size);
- 208              		.loc 1 173 0
- 209 000c 0249     		ldr	r1, .L19+4
- 210              	.LVL17:
- 211 000e FFF7FEFF 		bl	memcpy
- 212              	.LVL18:
- 213              	.L16:
- 214 0012 10BD     		pop	{r4, pc}
- 215              	.L20:
- 216              		.align	2
- 217              	.L19:
- 218 0014 004C0040 		.word	1073761280
- 219 0018 00000000 		.word	UART4_RxBuff
- 220              		.cfi_endproc
- 221              	.LFE69:
- 223              		.section	.text.HAL_UART_RxCpltCallback,"ax",%progbits
- 224              		.align	2
- 225              		.global	HAL_UART_RxCpltCallback
- 226              		.thumb
- 227              		.thumb_func
- 229              	HAL_UART_RxCpltCallback:
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 8
-
-
- 230              	.LFB70:
  174:Src/Control_usart.c ****         }
  175:Src/Control_usart.c ****     #elif (USE_HAL_UART5 == 1U)
  176:Src/Control_usart.c ****         if(UART5 == huart->Instance)
@@ -429,9 +401,40 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
  178:Src/Control_usart.c ****             memcpy(pData, UART5_RxBuff, Size);
  179:Src/Control_usart.c ****         }
  180:Src/Control_usart.c ****     #elif (USE_HAL_UART1 == 1U)
- 181:Src/Control_usart.c ****         if(UART1 == huart->Instance)
+ 181:Src/Control_usart.c ****         if(USART1 == huart->Instance)
+ 203              		.loc 1 181 0
+ 204 0002 0468     		ldr	r4, [r0]
+ 205 0004 034B     		ldr	r3, .L19
+ 206 0006 9C42     		cmp	r4, r3
+ 207 0008 03D1     		bne	.L16
+ 208 000a 0846     		mov	r0, r1
+ 209              	.LVL16:
  182:Src/Control_usart.c ****         {
  183:Src/Control_usart.c ****             memcpy(pData, UART1_RxBuff, Size);
+ 210              		.loc 1 183 0
+ 211 000c 0249     		ldr	r1, .L19+4
+ 212              	.LVL17:
+ 213 000e FFF7FEFF 		bl	memcpy
+ 214              	.LVL18:
+ 215              	.L16:
+ 216 0012 10BD     		pop	{r4, pc}
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 8
+
+
+ 217              	.L20:
+ 218              		.align	2
+ 219              	.L19:
+ 220 0014 00380140 		.word	1073821696
+ 221 0018 00000000 		.word	UART1_RxBuff
+ 222              		.cfi_endproc
+ 223              	.LFE69:
+ 225              		.section	.text.HAL_UART_RxCpltCallback,"ax",%progbits
+ 226              		.align	2
+ 227              		.global	HAL_UART_RxCpltCallback
+ 228              		.thumb
+ 229              		.thumb_func
+ 231              	HAL_UART_RxCpltCallback:
+ 232              	.LFB70:
  184:Src/Control_usart.c ****         }
  185:Src/Control_usart.c ****     #elif (USE_HAL_UART2 == 1U)
  186:Src/Control_usart.c ****         if(UART2 == huart->Instance)
@@ -451,22 +454,22 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
  200:Src/Control_usart.c **** /* USER CODE BEGIN 2 */
  201:Src/Control_usart.c **** void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
  202:Src/Control_usart.c **** {
- 231              		.loc 1 202 0
- 232              		.cfi_startproc
- 233              		@ args = 0, pretend = 0, frame = 0
- 234              		@ frame_needed = 0, uses_anonymous_args = 0
- 235              		@ link register save eliminated.
- 236              	.LVL19:
- 237 0000 7047     		bx	lr
- 238              		.cfi_endproc
- 239              	.LFE70:
- 241 0002 00BF     		.section	.text.HAL_UART_ErrorCallback,"ax",%progbits
- 242              		.align	2
- 243              		.global	HAL_UART_ErrorCallback
- 244              		.thumb
- 245              		.thumb_func
- 247              	HAL_UART_ErrorCallback:
- 248              	.LFB71:
+ 233              		.loc 1 202 0
+ 234              		.cfi_startproc
+ 235              		@ args = 0, pretend = 0, frame = 0
+ 236              		@ frame_needed = 0, uses_anonymous_args = 0
+ 237              		@ link register save eliminated.
+ 238              	.LVL19:
+ 239 0000 7047     		bx	lr
+ 240              		.cfi_endproc
+ 241              	.LFE70:
+ 243 0002 00BF     		.section	.text.HAL_UART_ErrorCallback,"ax",%progbits
+ 244              		.align	2
+ 245              		.global	HAL_UART_ErrorCallback
+ 246              		.thumb
+ 247              		.thumb_func
+ 249              	HAL_UART_ErrorCallback:
+ 250              	.LFB71:
  203:Src/Control_usart.c ****     #if (USE_HAL_UART4 == 1U)
  204:Src/Control_usart.c ****         if (huart == &huart4)
  205:Src/Control_usart.c ****         {
@@ -475,12 +478,12 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
  208:Src/Control_usart.c ****     #endif
  209:Src/Control_usart.c **** 
  210:Src/Control_usart.c ****     #if (USE_HAL_UART5 == 1U)
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 9
+
+
  211:Src/Control_usart.c ****         if (huart == &huart5)
  212:Src/Control_usart.c ****         {
  213:Src/Control_usart.c ****         /* */
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 9
-
-
  214:Src/Control_usart.c ****         }
  215:Src/Control_usart.c ****     #endif
  216:Src/Control_usart.c **** 
@@ -508,294 +511,202 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
  238:Src/Control_usart.c **** 
  239:Src/Control_usart.c **** void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
  240:Src/Control_usart.c **** {
- 249              		.loc 1 240 0
- 250              		.cfi_startproc
- 251              		@ args = 0, pretend = 0, frame = 0
- 252              		@ frame_needed = 0, uses_anonymous_args = 0
- 253              	.LVL20:
- 254              		.loc 1 240 0
- 255 0000 70B5     		push	{r4, r5, r6, lr}
- 256              	.LCFI6:
- 257              		.cfi_def_cfa_offset 16
- 258              		.cfi_offset 4, -16
- 259              		.cfi_offset 5, -12
- 260              		.cfi_offset 6, -8
- 261              		.cfi_offset 14, -4
- 262 0002 0446     		mov	r4, r0
+ 251              		.loc 1 240 0
+ 252              		.cfi_startproc
+ 253              		@ args = 0, pretend = 0, frame = 0
+ 254              		@ frame_needed = 0, uses_anonymous_args = 0
+ 255              	.LVL20:
+ 256              		.loc 1 240 0
+ 257 0000 38B5     		push	{r3, r4, r5, lr}
+ 258              	.LCFI6:
+ 259              		.cfi_def_cfa_offset 16
+ 260              		.cfi_offset 3, -16
+ 261              		.cfi_offset 4, -12
+ 262              		.cfi_offset 5, -8
+ 263              		.cfi_offset 14, -4
  241:Src/Control_usart.c ****     #if (USE_HAL_UART4 == 1U)
  242:Src/Control_usart.c ****         if (huart == &huart4)
- 263              		.loc 1 242 0
- 264 0004 284B     		ldr	r3, .L29
- 265 0006 9842     		cmp	r0, r3
- 266 0008 0CD1     		bne	.L23
  243:Src/Control_usart.c ****         {
  244:Src/Control_usart.c ****             memset(UART4_RxBuff, 0, 1000);
- 267              		.loc 1 244 0
- 268 000a 284D     		ldr	r5, .L29+4
- 269 000c 4FF47A76 		mov	r6, #1000
- 270 0010 3246     		mov	r2, r6
- 271 0012 0021     		movs	r1, #0
- 272 0014 2846     		mov	r0, r5
- 273              	.LVL21:
- 274 0016 FFF7FEFF 		bl	memset
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 10
-
-
- 275              	.LVL22:
  245:Src/Control_usart.c ****             HAL_UART_Receive_IT(&huart4, UART4_RxBuff, 1000);
- 276              		.loc 1 245 0
- 277 001a 3246     		mov	r2, r6
- 278 001c 2946     		mov	r1, r5
- 279 001e 2248     		ldr	r0, .L29
- 280 0020 FFF7FEFF 		bl	HAL_UART_Receive_IT
- 281              	.LVL23:
- 282              	.L23:
  246:Src/Control_usart.c ****         }
  247:Src/Control_usart.c ****     #endif
  248:Src/Control_usart.c **** 
  249:Src/Control_usart.c ****     #if (USE_HAL_UART5 == 1U)
  250:Src/Control_usart.c ****         if (huart == &huart5)
- 283              		.loc 1 250 0
- 284 0024 224B     		ldr	r3, .L29+8
- 285 0026 9C42     		cmp	r4, r3
- 286 0028 0CD1     		bne	.L24
  251:Src/Control_usart.c ****         {
  252:Src/Control_usart.c ****             memset(UART5_RxBuff, 0, 1000);
- 287              		.loc 1 252 0
- 288 002a 224D     		ldr	r5, .L29+12
- 289 002c 4FF47A76 		mov	r6, #1000
- 290 0030 3246     		mov	r2, r6
- 291 0032 0021     		movs	r1, #0
- 292 0034 2846     		mov	r0, r5
- 293 0036 FFF7FEFF 		bl	memset
- 294              	.LVL24:
  253:Src/Control_usart.c ****             HAL_UART_Receive_IT(&huart5, UART5_RxBuff, 1000);
- 295              		.loc 1 253 0
- 296 003a 3246     		mov	r2, r6
- 297 003c 2946     		mov	r1, r5
- 298 003e 1C48     		ldr	r0, .L29+8
- 299 0040 FFF7FEFF 		bl	HAL_UART_Receive_IT
- 300              	.LVL25:
- 301              	.L24:
  254:Src/Control_usart.c ****         }
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 10
+
+
  255:Src/Control_usart.c ****     #endif
  256:Src/Control_usart.c **** 
  257:Src/Control_usart.c ****     #if (USE_HAL_UART1 == 1U)
  258:Src/Control_usart.c ****         if (huart == &huart1)
- 302              		.loc 1 258 0
- 303 0044 1C4B     		ldr	r3, .L29+16
- 304 0046 9C42     		cmp	r4, r3
- 305 0048 0CD1     		bne	.L25
+ 264              		.loc 1 258 0
+ 265 0002 084B     		ldr	r3, .L25
+ 266 0004 8342     		cmp	r3, r0
+ 267 0006 0CD1     		bne	.L22
  259:Src/Control_usart.c ****         {
  260:Src/Control_usart.c ****             memset(UART1_RxBuff, 0, 1000);
- 306              		.loc 1 260 0
- 307 004a 1C4D     		ldr	r5, .L29+20
- 308 004c 4FF47A76 		mov	r6, #1000
- 309 0050 3246     		mov	r2, r6
- 310 0052 0021     		movs	r1, #0
- 311 0054 2846     		mov	r0, r5
- 312 0056 FFF7FEFF 		bl	memset
- 313              	.LVL26:
+ 268              		.loc 1 260 0
+ 269 0008 074C     		ldr	r4, .L25+4
+ 270 000a 4FF47A75 		mov	r5, #1000
+ 271 000e 2A46     		mov	r2, r5
+ 272 0010 0021     		movs	r1, #0
+ 273 0012 2046     		mov	r0, r4
+ 274              	.LVL21:
+ 275 0014 FFF7FEFF 		bl	memset
+ 276              	.LVL22:
  261:Src/Control_usart.c ****             HAL_UART_Receive_IT(&huart1, UART1_RxBuff, 1000);
- 314              		.loc 1 261 0
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 11
-
-
- 315 005a 3246     		mov	r2, r6
- 316 005c 2946     		mov	r1, r5
- 317 005e 1648     		ldr	r0, .L29+16
- 318 0060 FFF7FEFF 		bl	HAL_UART_Receive_IT
- 319              	.LVL27:
- 320              	.L25:
+ 277              		.loc 1 261 0
+ 278 0018 2A46     		mov	r2, r5
+ 279 001a 2146     		mov	r1, r4
+ 280 001c 0148     		ldr	r0, .L25
+ 281 001e FFF7FEFF 		bl	HAL_UART_Receive_IT
+ 282              	.LVL23:
+ 283              	.L22:
+ 284 0022 38BD     		pop	{r3, r4, r5, pc}
+ 285              	.L26:
+ 286              		.align	2
+ 287              	.L25:
+ 288 0024 00000000 		.word	.LANCHOR1
+ 289 0028 00000000 		.word	UART1_RxBuff
+ 290              		.cfi_endproc
+ 291              	.LFE71:
+ 293              		.section	.text.__io_putchar,"ax",%progbits
+ 294              		.align	2
+ 295              		.global	__io_putchar
+ 296              		.thumb
+ 297              		.thumb_func
+ 299              	__io_putchar:
+ 300              	.LFB72:
  262:Src/Control_usart.c ****         }
  263:Src/Control_usart.c ****     #endif
  264:Src/Control_usart.c **** 
  265:Src/Control_usart.c ****     #if (USE_HAL_UART2 == 1U)
  266:Src/Control_usart.c ****         if (huart == &huart2)
- 321              		.loc 1 266 0
- 322 0064 164B     		ldr	r3, .L29+24
- 323 0066 9C42     		cmp	r4, r3
- 324 0068 0CD1     		bne	.L26
  267:Src/Control_usart.c ****         {
  268:Src/Control_usart.c ****             memset(UART2_RxBuff, 0, 1000);
- 325              		.loc 1 268 0
- 326 006a 164D     		ldr	r5, .L29+28
- 327 006c 4FF47A76 		mov	r6, #1000
- 328 0070 3246     		mov	r2, r6
- 329 0072 0021     		movs	r1, #0
- 330 0074 2846     		mov	r0, r5
- 331 0076 FFF7FEFF 		bl	memset
- 332              	.LVL28:
  269:Src/Control_usart.c ****             HAL_UART_Receive_IT(&huart2, UART2_RxBuff, 1000);
- 333              		.loc 1 269 0
- 334 007a 3246     		mov	r2, r6
- 335 007c 2946     		mov	r1, r5
- 336 007e 1048     		ldr	r0, .L29+24
- 337 0080 FFF7FEFF 		bl	HAL_UART_Receive_IT
- 338              	.LVL29:
- 339              	.L26:
  270:Src/Control_usart.c ****         }
  271:Src/Control_usart.c ****     #endif
  272:Src/Control_usart.c **** 
  273:Src/Control_usart.c ****     #if (USE_HAL_UART3 == 1U)
  274:Src/Control_usart.c ****         if (huart == &huart3)
- 340              		.loc 1 274 0
- 341 0084 104B     		ldr	r3, .L29+32
- 342 0086 9C42     		cmp	r4, r3
- 343 0088 0CD1     		bne	.L22
  275:Src/Control_usart.c ****         {
  276:Src/Control_usart.c ****             memset(UART3_RxBuff, 0, 1000);
- 344              		.loc 1 276 0
- 345 008a 104C     		ldr	r4, .L29+36
- 346              	.LVL30:
- 347 008c 4FF47A75 		mov	r5, #1000
- 348 0090 2A46     		mov	r2, r5
- 349 0092 0021     		movs	r1, #0
- 350 0094 2046     		mov	r0, r4
- 351 0096 FFF7FEFF 		bl	memset
- 352              	.LVL31:
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 11
+
+
  277:Src/Control_usart.c ****             HAL_UART_Receive_IT(&huart3, UART3_RxBuff, 1000);
- 353              		.loc 1 277 0
- 354 009a 2A46     		mov	r2, r5
- 355 009c 2146     		mov	r1, r4
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 12
-
-
- 356 009e 0A48     		ldr	r0, .L29+32
- 357 00a0 FFF7FEFF 		bl	HAL_UART_Receive_IT
- 358              	.LVL32:
- 359              	.L22:
- 360 00a4 70BD     		pop	{r4, r5, r6, pc}
- 361              	.L30:
- 362 00a6 00BF     		.align	2
- 363              	.L29:
- 364 00a8 00000000 		.word	.LANCHOR1
- 365 00ac 00000000 		.word	UART4_RxBuff
- 366 00b0 00000000 		.word	.LANCHOR2
- 367 00b4 00000000 		.word	UART5_RxBuff
- 368 00b8 00000000 		.word	.LANCHOR3
- 369 00bc 00000000 		.word	UART1_RxBuff
- 370 00c0 00000000 		.word	.LANCHOR4
- 371 00c4 00000000 		.word	UART2_RxBuff
- 372 00c8 00000000 		.word	.LANCHOR5
- 373 00cc 00000000 		.word	UART3_RxBuff
- 374              		.cfi_endproc
- 375              	.LFE71:
- 377              		.section	.text.__io_putchar,"ax",%progbits
- 378              		.align	2
- 379              		.global	__io_putchar
- 380              		.thumb
- 381              		.thumb_func
- 383              	__io_putchar:
- 384              	.LFB72:
  278:Src/Control_usart.c ****         }
  279:Src/Control_usart.c ****     #endif
  280:Src/Control_usart.c **** }
  281:Src/Control_usart.c **** /* USER CODE END 2 */
- 282:Src/Control_usart.c **** 
+ 282:Src/Control_usart.c ****  
  283:Src/Control_usart.c **** 
  284:Src/Control_usart.c **** /* USER CODE BEGIN 3 */
  285:Src/Control_usart.c **** PUTCHAR_PROTOTYPE
  286:Src/Control_usart.c **** {
- 385              		.loc 1 286 0
- 386              		.cfi_startproc
- 387              		@ args = 0, pretend = 0, frame = 8
- 388              		@ frame_needed = 0, uses_anonymous_args = 0
- 389              	.LVL33:
- 390 0000 00B5     		push	{lr}
- 391              	.LCFI7:
- 392              		.cfi_def_cfa_offset 4
- 393              		.cfi_offset 14, -4
- 394 0002 83B0     		sub	sp, sp, #12
- 395              	.LCFI8:
- 396              		.cfi_def_cfa_offset 16
- 397 0004 02A9     		add	r1, sp, #8
- 398 0006 41F8040D 		str	r0, [r1, #-4]!
+ 301              		.loc 1 286 0
+ 302              		.cfi_startproc
+ 303              		@ args = 0, pretend = 0, frame = 8
+ 304              		@ frame_needed = 0, uses_anonymous_args = 0
+ 305              	.LVL24:
+ 306 0000 00B5     		push	{lr}
+ 307              	.LCFI7:
+ 308              		.cfi_def_cfa_offset 4
+ 309              		.cfi_offset 14, -4
+ 310 0002 83B0     		sub	sp, sp, #12
+ 311              	.LCFI8:
+ 312              		.cfi_def_cfa_offset 16
+ 313 0004 02A9     		add	r1, sp, #8
+ 314 0006 41F8040D 		str	r0, [r1, #-4]!
  287:Src/Control_usart.c ****   HAL_UART_Transmit(P_printf, (uint8_t *)&ch, 1, 10);
- 399              		.loc 1 287 0
- 400 000a 0A23     		movs	r3, #10
- 401 000c 0122     		movs	r2, #1
- 402 000e 0448     		ldr	r0, .L33
- 403              	.LVL34:
- 404 0010 0068     		ldr	r0, [r0]
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 13
-
-
- 405 0012 FFF7FEFF 		bl	HAL_UART_Transmit
- 406              	.LVL35:
+ 315              		.loc 1 287 0
+ 316 000a 0A23     		movs	r3, #10
+ 317 000c 0122     		movs	r2, #1
+ 318 000e 0448     		ldr	r0, .L29
+ 319              	.LVL25:
+ 320 0010 0068     		ldr	r0, [r0]
+ 321 0012 FFF7FEFF 		bl	HAL_UART_Transmit
+ 322              	.LVL26:
  288:Src/Control_usart.c **** 
  289:Src/Control_usart.c ****   return ch;
  290:Src/Control_usart.c **** }
- 407              		.loc 1 290 0
- 408 0016 0198     		ldr	r0, [sp, #4]
- 409 0018 03B0     		add	sp, sp, #12
- 410              	.LCFI9:
- 411              		.cfi_def_cfa_offset 4
- 412              		@ sp needed
- 413 001a 5DF804FB 		ldr	pc, [sp], #4
- 414              	.LVL36:
- 415              	.L34:
- 416 001e 00BF     		.align	2
- 417              	.L33:
- 418 0020 00000000 		.word	.LANCHOR6
- 419              		.cfi_endproc
- 420              	.LFE72:
- 422              		.section	.text._write,"ax",%progbits
- 423              		.align	2
- 424              		.global	_write
- 425              		.thumb
- 426              		.thumb_func
- 428              	_write:
- 429              	.LFB73:
+ 323              		.loc 1 290 0
+ 324 0016 0198     		ldr	r0, [sp, #4]
+ 325 0018 03B0     		add	sp, sp, #12
+ 326              	.LCFI9:
+ 327              		.cfi_def_cfa_offset 4
+ 328              		@ sp needed
+ 329 001a 5DF804FB 		ldr	pc, [sp], #4
+ 330              	.LVL27:
+ 331              	.L30:
+ 332 001e 00BF     		.align	2
+ 333              	.L29:
+ 334 0020 00000000 		.word	.LANCHOR2
+ 335              		.cfi_endproc
+ 336              	.LFE72:
+ 338              		.section	.text._write,"ax",%progbits
+ 339              		.align	2
+ 340              		.global	_write
+ 341              		.thumb
+ 342              		.thumb_func
+ 344              	_write:
+ 345              	.LFB73:
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 12
+
+
  291:Src/Control_usart.c **** 
  292:Src/Control_usart.c **** int _write(int file, char *ptr, int len)
  293:Src/Control_usart.c **** {
- 430              		.loc 1 293 0
- 431              		.cfi_startproc
- 432              		@ args = 0, pretend = 0, frame = 0
- 433              		@ frame_needed = 0, uses_anonymous_args = 0
- 434              	.LVL37:
- 435 0000 70B5     		push	{r4, r5, r6, lr}
- 436              	.LCFI10:
- 437              		.cfi_def_cfa_offset 16
- 438              		.cfi_offset 4, -16
- 439              		.cfi_offset 5, -12
- 440              		.cfi_offset 6, -8
- 441              		.cfi_offset 14, -4
- 442 0002 1646     		mov	r6, r2
- 443              	.LVL38:
+ 346              		.loc 1 293 0
+ 347              		.cfi_startproc
+ 348              		@ args = 0, pretend = 0, frame = 0
+ 349              		@ frame_needed = 0, uses_anonymous_args = 0
+ 350              	.LVL28:
+ 351 0000 70B5     		push	{r4, r5, r6, lr}
+ 352              	.LCFI10:
+ 353              		.cfi_def_cfa_offset 16
+ 354              		.cfi_offset 4, -16
+ 355              		.cfi_offset 5, -12
+ 356              		.cfi_offset 6, -8
+ 357              		.cfi_offset 14, -4
+ 358 0002 1646     		mov	r6, r2
+ 359              	.LVL29:
  294:Src/Control_usart.c ****     int DataIdx;
  295:Src/Control_usart.c **** 
  296:Src/Control_usart.c ****     for (DataIdx = 0; DataIdx < len; DataIdx++)
- 444              		.loc 1 296 0
- 445 0004 0024     		movs	r4, #0
- 446 0006 05E0     		b	.L36
- 447              	.LVL39:
- 448              	.L37:
+ 360              		.loc 1 296 0
+ 361 0004 0024     		movs	r4, #0
+ 362 0006 05E0     		b	.L32
+ 363              	.LVL30:
+ 364              	.L33:
  297:Src/Control_usart.c ****     {
  298:Src/Control_usart.c ****         #ifdef __GNUC__
  299:Src/Control_usart.c ****             __io_putchar(*ptr++);
- 449              		.loc 1 299 0 discriminator 3
- 450 0008 4D1C     		adds	r5, r1, #1
- 451              	.LVL40:
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 14
-
-
- 452 000a 0878     		ldrb	r0, [r1]	@ zero_extendqisi2
- 453 000c FFF7FEFF 		bl	__io_putchar
- 454              	.LVL41:
+ 365              		.loc 1 299 0 discriminator 3
+ 366 0008 4D1C     		adds	r5, r1, #1
+ 367              	.LVL31:
+ 368 000a 0878     		ldrb	r0, [r1]	@ zero_extendqisi2
+ 369 000c FFF7FEFF 		bl	__io_putchar
+ 370              	.LVL32:
  296:Src/Control_usart.c ****     {
- 455              		.loc 1 296 0 discriminator 3
- 456 0010 0134     		adds	r4, r4, #1
- 457              	.LVL42:
- 458              		.loc 1 299 0 discriminator 3
- 459 0012 2946     		mov	r1, r5
- 460              	.LVL43:
- 461              	.L36:
+ 371              		.loc 1 296 0 discriminator 3
+ 372 0010 0134     		adds	r4, r4, #1
+ 373              	.LVL33:
+ 374              		.loc 1 299 0 discriminator 3
+ 375 0012 2946     		mov	r1, r5
+ 376              	.LVL34:
+ 377              	.L32:
  296:Src/Control_usart.c ****     {
- 462              		.loc 1 296 0 discriminator 1
- 463 0014 B442     		cmp	r4, r6
- 464 0016 F7DB     		blt	.L37
+ 378              		.loc 1 296 0 discriminator 1
+ 379 0014 B442     		cmp	r4, r6
+ 380 0016 F7DB     		blt	.L33
  300:Src/Control_usart.c ****         #else
  301:Src/Control_usart.c ****             fputc(*ptr++);
  302:Src/Control_usart.c ****         #endif   
@@ -803,184 +714,89 @@ ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 1
  304:Src/Control_usart.c ****     
  305:Src/Control_usart.c ****     return len;
  306:Src/Control_usart.c **** }
- 465              		.loc 1 306 0
- 466 0018 3046     		mov	r0, r6
- 467 001a 70BD     		pop	{r4, r5, r6, pc}
- 468              		.cfi_endproc
- 469              	.LFE73:
- 471              		.comm	UART3_RxBuff,1000,4
- 472              		.comm	UART2_RxBuff,1000,4
- 473              		.comm	UART1_RxBuff,1000,4
- 474              		.comm	UART5_RxBuff,1000,4
- 475              		.comm	UART4_RxBuff,1000,4
- 476              		.global	P_printf
- 477              		.global	huart3
- 478              		.global	huart2
- 479              		.global	huart1
- 480              		.global	huart5
- 481              		.global	huart4
- 482              		.section	.data.huart1,"aw",%progbits
- 483              		.align	2
- 484              		.set	.LANCHOR3,. + 0
- 487              	huart1:
- 488 0000 00380140 		.word	1073821696
- 489 0004 00C20100 		.word	115200
- 490 0008 00000000 		.word	0
- 491 000c 00000000 		.word	0
- 492 0010 00000000 		.word	0
- 493 0014 0C000000 		.word	12
- 494 0018 00000000 		.space	8
- 494      00000000 
- 495 0020 00000000 		.space	32
- 495      00000000 
- 495      00000000 
- 495      00000000 
- 495      00000000 
- 496              		.section	.data.huart2,"aw",%progbits
- 497              		.align	2
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 15
+ 381              		.loc 1 306 0
+ 382 0018 3046     		mov	r0, r6
+ 383 001a 70BD     		pop	{r4, r5, r6, pc}
+ 384              		.cfi_endproc
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 13
 
 
- 498              		.set	.LANCHOR4,. + 0
- 501              	huart2:
- 502 0000 00440040 		.word	1073759232
- 503 0004 00C20100 		.word	115200
- 504 0008 00000000 		.word	0
- 505 000c 00000000 		.word	0
- 506 0010 00000000 		.word	0
- 507 0014 0C000000 		.word	12
- 508 0018 00000000 		.space	8
- 508      00000000 
- 509 0020 00000000 		.space	32
- 509      00000000 
- 509      00000000 
- 509      00000000 
- 509      00000000 
- 510              		.section	.data.huart3,"aw",%progbits
- 511              		.align	2
- 512              		.set	.LANCHOR5,. + 0
- 515              	huart3:
- 516 0000 00480040 		.word	1073760256
- 517 0004 00C20100 		.word	115200
- 518 0008 00000000 		.word	0
- 519 000c 00000000 		.word	0
- 520 0010 00000000 		.word	0
- 521 0014 0C000000 		.word	12
- 522 0018 00000000 		.space	8
- 522      00000000 
- 523 0020 00000000 		.space	32
- 523      00000000 
- 523      00000000 
- 523      00000000 
- 523      00000000 
- 524              		.section	.data.huart4,"aw",%progbits
- 525              		.align	2
- 526              		.set	.LANCHOR1,. + 0
- 529              	huart4:
- 530 0000 004C0040 		.word	1073761280
- 531 0004 00C20100 		.word	115200
- 532 0008 00000000 		.word	0
- 533 000c 00000000 		.word	0
- 534 0010 00000000 		.word	0
- 535 0014 0C000000 		.word	12
- 536 0018 00000000 		.space	8
- 536      00000000 
- 537 0020 00000000 		.space	32
- 537      00000000 
- 537      00000000 
- 537      00000000 
- 537      00000000 
- 538              		.section	.data.huart5,"aw",%progbits
- 539              		.align	2
- 540              		.set	.LANCHOR2,. + 0
- 543              	huart5:
- 544 0000 00500040 		.word	1073762304
- 545 0004 00C20100 		.word	115200
- 546 0008 00000000 		.word	0
- 547 000c 00000000 		.word	0
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 16
-
-
- 548 0010 00000000 		.word	0
- 549 0014 0C000000 		.word	12
- 550 0018 00000000 		.space	8
- 550      00000000 
- 551 0020 00000000 		.space	32
- 551      00000000 
- 551      00000000 
- 551      00000000 
- 551      00000000 
- 552              		.section	.data.P_printf,"aw",%progbits
- 553              		.align	2
- 554              		.set	.LANCHOR6,. + 0
- 557              	P_printf:
- 558 0000 00000000 		.word	huart5
- 559              		.section	.data.UART_Array,"aw",%progbits
- 560              		.align	2
- 561              		.set	.LANCHOR0,. + 0
- 564              	UART_Array:
- 565 0000 00000000 		.word	huart4
- 566 0004 00000000 		.word	huart5
- 567 0008 00000000 		.word	huart1
- 568 000c 00000000 		.word	huart2
- 569 0010 00000000 		.word	huart3
- 570 0014 00000000 		.word	0
- 571              		.text
- 572              	.Letext0:
- 573              		.file 2 "/Users/leixiaoxiang/opt/gcc-arm-none-eabi/arm-none-eabi/include/machine/_default_types.h"
- 574              		.file 3 "/Users/leixiaoxiang/opt/gcc-arm-none-eabi/arm-none-eabi/include/sys/_stdint.h"
- 575              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
- 576              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
- 577              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
- 578              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
- 579              		.file 8 "Drivers/CMSIS/Include/core_cm3.h"
- 580              		.file 9 "Inc/Control_usart.h"
- 581              		.file 10 "Inc/main.h"
-ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s 			page 17
+ 385              	.LFE73:
+ 387              		.comm	UART1_RxBuff,1000,4
+ 388              		.global	P_printf
+ 389              		.global	huart1
+ 390              		.section	.data.huart1,"aw",%progbits
+ 391              		.align	2
+ 392              		.set	.LANCHOR1,. + 0
+ 395              	huart1:
+ 396 0000 00380140 		.word	1073821696
+ 397 0004 00C20100 		.word	115200
+ 398 0008 00000000 		.word	0
+ 399 000c 00000000 		.word	0
+ 400 0010 00000000 		.word	0
+ 401 0014 0C000000 		.word	12
+ 402 0018 00000000 		.space	8
+ 402      00000000 
+ 403 0020 00000000 		.space	32
+ 403      00000000 
+ 403      00000000 
+ 403      00000000 
+ 403      00000000 
+ 404              		.section	.data.P_printf,"aw",%progbits
+ 405              		.align	2
+ 406              		.set	.LANCHOR2,. + 0
+ 409              	P_printf:
+ 410 0000 00000000 		.word	huart1
+ 411              		.section	.data.UART_Array,"aw",%progbits
+ 412              		.align	2
+ 413              		.set	.LANCHOR0,. + 0
+ 416              	UART_Array:
+ 417 0000 00000000 		.word	huart1
+ 418 0004 00000000 		.word	0
+ 419              		.text
+ 420              	.Letext0:
+ 421              		.file 2 "/Users/leixiaoxiang/opt/gcc-arm-none-eabi/arm-none-eabi/include/machine/_default_types.h"
+ 422              		.file 3 "/Users/leixiaoxiang/opt/gcc-arm-none-eabi/arm-none-eabi/include/sys/_stdint.h"
+ 423              		.file 4 "Drivers/CMSIS/Device/ST/STM32F1xx/Include/stm32f103xe.h"
+ 424              		.file 5 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_def.h"
+ 425              		.file 6 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_dma.h"
+ 426              		.file 7 "Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h"
+ 427              		.file 8 "Drivers/CMSIS/Include/core_cm3.h"
+ 428              		.file 9 "Inc/Control_usart.h"
+ 429              		.file 10 "Inc/main.h"
+ARM GAS  /var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s 			page 14
 
 
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 Control_usart.c
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:20     .text.MX_SINGLE_OF_UART_Init:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:25     .text.MX_SINGLE_OF_UART_Init:0000000000000000 MX_SINGLE_OF_UART_Init
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:84     .text.MX_SINGLE_OF_UART_Init:0000000000000040 $d
-                            *COM*:00000000000003e8 UART4_RxBuff
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:90     .text.MX_ALL_OF_UART_Init:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:95     .text.MX_ALL_OF_UART_Init:0000000000000000 MX_ALL_OF_UART_Init
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:128    .text.MX_ALL_OF_UART_Init:0000000000000014 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:133    .text.UARTReceive_IDLE:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:138    .text.UARTReceive_IDLE:0000000000000000 UARTReceive_IDLE
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:184    .text.GetRxData:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:189    .text.GetRxData:0000000000000000 GetRxData
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:218    .text.GetRxData:0000000000000014 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:224    .text.HAL_UART_RxCpltCallback:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:229    .text.HAL_UART_RxCpltCallback:0000000000000000 HAL_UART_RxCpltCallback
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:242    .text.HAL_UART_ErrorCallback:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:247    .text.HAL_UART_ErrorCallback:0000000000000000 HAL_UART_ErrorCallback
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:364    .text.HAL_UART_ErrorCallback:00000000000000a8 $d
-                            *COM*:00000000000003e8 UART5_RxBuff
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:20     .text.MX_SINGLE_OF_UART_Init:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:25     .text.MX_SINGLE_OF_UART_Init:0000000000000000 MX_SINGLE_OF_UART_Init
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:84     .text.MX_SINGLE_OF_UART_Init:0000000000000040 $d
                             *COM*:00000000000003e8 UART1_RxBuff
-                            *COM*:00000000000003e8 UART2_RxBuff
-                            *COM*:00000000000003e8 UART3_RxBuff
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:378    .text.__io_putchar:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:383    .text.__io_putchar:0000000000000000 __io_putchar
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:418    .text.__io_putchar:0000000000000020 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:423    .text._write:0000000000000000 $t
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:428    .text._write:0000000000000000 _write
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:557    .data.P_printf:0000000000000000 P_printf
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:515    .data.huart3:0000000000000000 huart3
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:501    .data.huart2:0000000000000000 huart2
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:487    .data.huart1:0000000000000000 huart1
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:543    .data.huart5:0000000000000000 huart5
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:529    .data.huart4:0000000000000000 huart4
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:483    .data.huart1:0000000000000000 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:497    .data.huart2:0000000000000000 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:511    .data.huart3:0000000000000000 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:525    .data.huart4:0000000000000000 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:539    .data.huart5:0000000000000000 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:553    .data.P_printf:0000000000000000 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:560    .data.UART_Array:0000000000000000 $d
-/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccJBjhL0.s:564    .data.UART_Array:0000000000000000 UART_Array
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:90     .text.MX_ALL_OF_UART_Init:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:95     .text.MX_ALL_OF_UART_Init:0000000000000000 MX_ALL_OF_UART_Init
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:130    .text.MX_ALL_OF_UART_Init:0000000000000014 $d
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:135    .text.UARTReceive_IDLE:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:140    .text.UARTReceive_IDLE:0000000000000000 UARTReceive_IDLE
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:186    .text.GetRxData:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:191    .text.GetRxData:0000000000000000 GetRxData
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:220    .text.GetRxData:0000000000000014 $d
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:226    .text.HAL_UART_RxCpltCallback:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:231    .text.HAL_UART_RxCpltCallback:0000000000000000 HAL_UART_RxCpltCallback
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:244    .text.HAL_UART_ErrorCallback:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:249    .text.HAL_UART_ErrorCallback:0000000000000000 HAL_UART_ErrorCallback
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:288    .text.HAL_UART_ErrorCallback:0000000000000024 $d
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:294    .text.__io_putchar:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:299    .text.__io_putchar:0000000000000000 __io_putchar
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:334    .text.__io_putchar:0000000000000020 $d
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:339    .text._write:0000000000000000 $t
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:344    .text._write:0000000000000000 _write
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:409    .data.P_printf:0000000000000000 P_printf
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:395    .data.huart1:0000000000000000 huart1
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:391    .data.huart1:0000000000000000 $d
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:405    .data.P_printf:0000000000000000 $d
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:412    .data.UART_Array:0000000000000000 $d
+/var/folders/9t/hshg14bj4r3bdmp8s0pp3jdw0000gn/T//ccRy2XBc.s:416    .data.UART_Array:0000000000000000 UART_Array
                      .debug_frame:0000000000000010 $d
 
 UNDEFINED SYMBOLS

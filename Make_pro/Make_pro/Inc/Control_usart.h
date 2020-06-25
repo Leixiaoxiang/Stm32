@@ -38,11 +38,11 @@
     #define EXTERN  extern
 #endif
 
-#define USE_HAL_UART4         1U
-#define USE_HAL_UART5         1U  
+#define USE_HAL_UART4         0U
+#define USE_HAL_UART5         0U  
 #define USE_HAL_UART1         1U  
-#define USE_HAL_UART2         1U  
-#define USE_HAL_UART3         1U  
+#define USE_HAL_UART2         0U  
+#define USE_HAL_UART3         0U  
 
 /* USER CODE END Global defines */
 
@@ -135,7 +135,7 @@
 
 EXTERN UART_HandleTypeDef *P_printf 
 #ifdef UART_GLOBALS_VARIABLE_DEFINED
-                                    = &huart5
+                                    = &huart1
 #endif
                                     ;
                    

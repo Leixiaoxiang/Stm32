@@ -204,11 +204,15 @@ void SysTick_Handler(void)
 void USART1_IRQHandler(void)
 {
   /* USER CODE BEGIN USART1_IRQn 0 */
-
+  #if (USE_HAL_UART1 == 1U)
   /* USER CODE END USART1_IRQn 0 */
-  HAL_UART_IRQHandler(&huart1);
+      HAL_UART_IRQHandler(&huart1);
   /* USER CODE BEGIN USART1_IRQn 1 */
-
+      if(__HAL_UART_GET_IT_SOURCE(&huart1,UART_IT_IDLE) != RESET)
+      {
+          UARTReceive_IDLE(&huart1);
+      }
+    #endif
   /* USER CODE END USART1_IRQn 1 */
 }
 
@@ -218,11 +222,15 @@ void USART1_IRQHandler(void)
 void USART2_IRQHandler(void)
 {
   /* USER CODE BEGIN USART2_IRQn 0 */
-
+  #if (USE_HAL_UART2 == 1U)
   /* USER CODE END USART2_IRQn 0 */
-  HAL_UART_IRQHandler(&huart2);
+      HAL_UART_IRQHandler(&huart2);
   /* USER CODE BEGIN USART2_IRQn 1 */
-
+      if(__HAL_UART_GET_IT_SOURCE(&huart2,UART_IT_IDLE) != RESET)
+      {
+          UARTReceive_IDLE(&huart2);
+      }
+    #endif
   /* USER CODE END USART2_IRQn 1 */
 }
 
@@ -232,11 +240,15 @@ void USART2_IRQHandler(void)
 void USART3_IRQHandler(void)
 {
   /* USER CODE BEGIN USART3_IRQn 0 */
-
+    #if (USE_HAL_UART3 == 1U)
   /* USER CODE END USART3_IRQn 0 */
-  HAL_UART_IRQHandler(&huart3);
+      HAL_UART_IRQHandler(&huart3);
   /* USER CODE BEGIN USART3_IRQn 1 */
-
+      if(__HAL_UART_GET_IT_SOURCE(&huart3,UART_IT_IDLE) != RESET)
+      {
+          UARTReceive_IDLE(&huart3);
+      }
+    #endif
   /* USER CODE END USART3_IRQn 1 */
 }
 

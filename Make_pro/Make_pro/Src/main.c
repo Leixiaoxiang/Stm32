@@ -23,6 +23,7 @@
 //#include "usart.h"
 #include "Control_usart.h"
 #include "gpio.h"
+#include "stdio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -98,7 +99,8 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
- 
+    printf("ccccccccc\n");
+    HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

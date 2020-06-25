@@ -96,7 +96,7 @@ void MX_ALL_OF_UART_Init(void)
 {
     UART_HandleTypeDef** pUART_Array = UART_Array;
 
-    for (; pUART_Array != NULL; pUART_Array++)
+    for (; *pUART_Array != NULL; pUART_Array++)
     {
         MX_SINGLE_OF_UART_Init(*pUART_Array);
     }  
@@ -119,7 +119,7 @@ void MX_SINGLE_OF_UART_Init(UART_HandleTypeDef* huart)
             huart->RxXferSize   = UART5_RxXferSize;
         }
     #elif (USE_HAL_UART1 == 1U)
-        if(UART1 == huart->Instance)
+        if(USART1 == huart->Instance)
         {
             huart->pRxBuffPtr   = UART1_RxBuff;
             huart->RxXferSize   = UART1_RxXferSize;
@@ -178,7 +178,7 @@ void GetRxData(UART_HandleTypeDef *huart, uint8_t *pData, uint16_t Size)
             memcpy(pData, UART5_RxBuff, Size);
         }
     #elif (USE_HAL_UART1 == 1U)
-        if(UART1 == huart->Instance)
+        if(USART1 == huart->Instance)
         {
             memcpy(pData, UART1_RxBuff, Size);
         }
@@ -279,7 +279,7 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
     #endif
 }
 /* USER CODE END 2 */
-
+ 
 
 /* USER CODE BEGIN 3 */
 PUTCHAR_PROTOTYPE
